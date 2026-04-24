@@ -321,56 +321,19 @@ section { position:relative; z-index:1; padding:clamp(60px,10vw,120px) clamp(20p
   color:var(--text); margin-bottom:20px; display:flex; align-items:center; gap:8px;
 }
 .skill-cat-icon { font-size:18px; }
-
-/* skill row with level badge */
-.skill-row {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:10px 0; border-bottom:1px solid rgba(255,255,255,.04);
-  opacity:0; transform:translateX(-12px);
-  transition:opacity .5s ease, transform .5s ease;
+.skill-bar-row { margin-bottom:16px; }
+.skill-bar-label { display:flex; justify-content:space-between; font-size:12px; font-weight:500; margin-bottom:6px; }
+.skill-bar-label span:last-child { color:var(--text-muted); }
+.skill-bar-track {
+  height:5px; background:rgba(255,255,255,.07); border-radius:99px; overflow:hidden;
 }
-.skill-row.visible { opacity:1; transform:translateX(0); }
-.skill-row:last-of-type { border-bottom:none; }
-.skill-name { font-size:13px; font-weight:500; color:var(--text); }
-
-/* level badge styles */
-.lvl {
-  font-size:10px; font-weight:700; padding:3px 10px; border-radius:99px;
-  letter-spacing:.06em; text-transform:uppercase; white-space:nowrap;
+.skill-bar-fill {
+  height:100%; border-radius:99px; width:0;
+  background:linear-gradient(90deg, var(--indigo), var(--cyan));
+  transition:width .9s cubic-bezier(.4,0,.2,1);
 }
-.lvl-expert {
-  background:rgba(99,102,241,.18); border:1px solid rgba(99,102,241,.45);
-  color:var(--indigo-l);
-}
-.lvl-proficient {
-  background:rgba(34,211,238,.14); border:1px solid rgba(34,211,238,.4);
-  color:var(--cyan);
-}
-.lvl-intermediate {
-  background:rgba(245,158,11,.12); border:1px solid rgba(245,158,11,.35);
-  color:var(--amber-l);
-}
-.lvl-familiar {
-  background:rgba(236,72,153,.1); border:1px solid rgba(236,72,153,.3);
-  color:var(--pink-l);
-}
-
-/* legend */
-.skill-legend {
-  display:flex; flex-wrap:wrap; gap:10px; margin-bottom:32px;
-}
-.legend-item {
-  display:flex; align-items:center; gap:6px;
-  font-size:11px; color:var(--text-muted); font-weight:500;
-}
-.legend-dot {
-  width:8px; height:8px; border-radius:50%;
-}
-.legend-dot.expert      { background:var(--indigo); }
-.legend-dot.proficient  { background:var(--cyan); }
-.legend-dot.intermediate{ background:var(--amber); }
-.legend-dot.familiar    { background:var(--pink); }
-
+.skill-bar-fill.pink  { background:linear-gradient(90deg, var(--pink), var(--amber)); }
+.skill-bar-fill.amber { background:linear-gradient(90deg, var(--amber), var(--cyan)); }
 .chip-cloud { display:flex; flex-wrap:wrap; gap:8px; margin-top:20px; }
 .chip {
   font-size:12px; font-weight:500; padding:5px 12px; border-radius:99px;
@@ -626,7 +589,7 @@ footer {
 <!-- ── HERO ───────────────────────────────────────── -->
 <section id="hero">
   <div class="hero-left">
-    <div class="hero-eyebrow">DevOps &amp; Cloud Engineer</div>
+    <div class="hero-eyebrow">DevOps Engineer</div>
     <h1 class="hero-name">Sangamesh<br>Belawadi</h1>
     <p class="hero-role">Building <em>scalable infrastructure</em> that never sleeps</p>
     <p class="hero-bio">5+ years crafting resilient AWS cloud architectures, automating everything with Terraform &amp; CloudFormation, and shipping zero-downtime deployments — from Kubernetes clusters to serverless observability pipelines.</p>
@@ -638,6 +601,7 @@ footer {
       <a class="social-chip" href="mailto:sangameshmbelawadi@gmail.com" title="Email">✉</a>
       <a class="social-chip" href="https://www.linkedin.com/in/sangamesh-belawadi-a79036405" target="_blank" title="LinkedIn">in</a>
       <a class="social-chip" href="tel:+918951809794" title="Phone">☎</a>
+      <a class="btn-outline" href="Sangamesh_Belawadi_Resume.pdf" target="_blank">View Resume</a>
     </div>
   </div>
 
@@ -675,69 +639,103 @@ footer {
   <div class="section-label">What I bring</div>
   <h2 class="section-title">Technical <span>Arsenal</span></h2>
 
-  <!-- Legend -->
-  <div class="skill-legend">
-    <div class="legend-item"><div class="legend-dot expert"></div> Expert — daily use, deep production experience</div>
-    <div class="legend-item"><div class="legend-dot proficient"></div> Proficient — strong hands-on, real-world projects</div>
-    <div class="legend-item"><div class="legend-dot intermediate"></div> Intermediate — comfortable, used in projects</div>
-    <div class="legend-item"><div class="legend-dot familiar"></div> Familiar — exposure &amp; learning</div>
-  </div>
-
   <div class="skills-grid">
     <!-- Cloud -->
     <div class="skill-category reveal">
       <div class="skill-cat-title"><span class="skill-cat-icon">☁️</span> Cloud Platforms</div>
-      <div class="skill-row"><span class="skill-name">AWS (EC2, VPC, IAM)</span><span class="lvl lvl-expert">Expert</span></div>
-      <div class="skill-row"><span class="skill-name">CloudFormation</span><span class="lvl lvl-expert">Expert</span></div>
-      <div class="skill-row"><span class="skill-name">AWS CLI &amp; Shell Scripting</span><span class="lvl lvl-expert">Expert</span></div>
-      <div class="skill-row"><span class="skill-name">Lambda / SNS / S3</span><span class="lvl lvl-proficient">Proficient</span></div>
-      <div class="skill-row"><span class="skill-name">EKS / ECR / ECS</span><span class="lvl lvl-proficient">Proficient</span></div>
-      <div class="skill-row"><span class="skill-name">Route 53 / CloudTrail</span><span class="lvl lvl-proficient">Proficient</span></div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>AWS [Advanced]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>EC2 / VPC / IAM [Proificient]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Lambda / SNS / SQS [Intermidiate]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>EKS / ECR [Proificient]</span><span></span></div>
+        
+      </div>
       <div class="chip-cloud">
-        <span class="chip">EBS</span><span class="chip">EFS</span>
-        <span class="chip">RDS Aurora</span><span class="chip">NAT Gateway</span>
+        <span class="chip">Route 53</span><span class="chip">CloudTrail</span>
+        <span class="chip">S3</span><span class="chip">RDS Aurora</span><span class="chip">EBS/EFS</span>
       </div>
     </div>
 
     <!-- IaC & CI/CD -->
     <div class="skill-category reveal">
       <div class="skill-cat-title"><span class="skill-cat-icon">⚙️</span> IaC &amp; CI/CD</div>
-      <div class="skill-row"><span class="skill-name">Terraform</span><span class="lvl lvl-proficient">Proficient</span></div>
-      <div class="skill-row"><span class="skill-name">Jenkins</span><span class="lvl lvl-proficient">Proficient</span></div>
-      <div class="skill-row"><span class="skill-name">cfn-init / cfn-hup</span><span class="lvl lvl-expert">Expert</span></div>
-      <div class="skill-row"><span class="skill-name">Argo CD</span><span class="lvl lvl-intermediate">Intermediate</span></div>
-      <div class="skill-row"><span class="skill-name">Helm</span><span class="lvl lvl-intermediate">Intermediate</span></div>
-      <div class="skill-row"><span class="skill-name">Git / GitOps</span><span class="lvl lvl-proficient">Proficient</span></div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>CloudFormation [Proificient]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Terraform [Proificient]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Jenkins [Proificient]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Argo CD [Intermediate]</span><span></span></div>
+        
+      </div>
       <div class="chip-cloud">
-        <span class="chip">Blue/Green Deploy</span><span class="chip">Rolling Updates</span>
+        <span class="chip">GitOps</span><span class="chip">cfn-init</span>
+        <span class="chip">cfn-hup</span><span class="chip">Helm</span><span class="chip">Git</span>
       </div>
     </div>
 
     <!-- Containers -->
     <div class="skill-category reveal">
       <div class="skill-cat-title"><span class="skill-cat-icon">🐳</span> Containers &amp; Orchestration</div>
-      <div class="skill-row"><span class="skill-name">Docker</span><span class="lvl lvl-proficient">Proficient</span></div>
-      <div class="skill-row"><span class="skill-name">Kubernetes</span><span class="lvl lvl-proficient">Proficient</span></div>
-      <div class="skill-row"><span class="skill-name">Ansible</span><span class="lvl lvl-intermediate">Intermediate</span></div>
-      <div class="skill-row"><span class="skill-name">Helm Charts</span><span class="lvl lvl-intermediate">Intermediate</span></div>
-      <div class="skill-row"><span class="skill-name">Linux Administration</span><span class="lvl lvl-proficient">Proficient</span></div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Docker [Proificient]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Kubernetes [Advanced]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Helm Charts [Proificient]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Ansible [Proificient]</span><span></span></div>
+        
+      </div>
       <div class="chip-cloud">
-        <span class="chip">HPA</span><span class="chip">StatefulSets</span>
-        <span class="chip">ConfigMaps</span><span class="chip">Namespaces</span>
+        <span class="chip">Rolling Updates</span><span class="chip">HPA</span>
+        <span class="chip">StatefulSets</span><span class="chip">ConfigMaps</span>
       </div>
     </div>
 
     <!-- Monitoring -->
     <div class="skill-category reveal">
       <div class="skill-cat-title"><span class="skill-cat-icon">📊</span> Observability</div>
-      <div class="skill-row"><span class="skill-name">CloudWatch</span><span class="lvl lvl-proficient">Proficient</span></div>
-      <div class="skill-row"><span class="skill-name">Splunk</span><span class="lvl lvl-proficient">Proficient</span></div>
-      <div class="skill-row"><span class="skill-name">JMX Metrics</span><span class="lvl lvl-proficient">Proficient</span></div>
-      <div class="skill-row"><span class="skill-name">Prometheus</span><span class="lvl lvl-intermediate">Intermediate</span></div>
-      <div class="skill-row"><span class="skill-name">Grafana</span><span class="lvl lvl-intermediate">Intermediate</span></div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>CloudWatch {proificient]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Splunk [Proificient]</span><span></span></div>
+        
+      </div>
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Prometheus [Intermediate]</span><span></span></div>
+        
+      <div class="skill-bar-row">
+        <div class="skill-bar-label"><span>Grafana [Intermediate]</span><span></span></div>
+        
+      </div>
       <div class="chip-cloud">
-        <span class="chip">SNS Alerts</span><span class="chip">Log Aggregation</span>
-        <span class="chip">Dashboards</span>
+        <span class="chip">JMX</span><span class="chip">SNS Alerts</span>
+        <span class="chip">Dashboards</span><span class="chip">Log Analysis</span>
       </div>
     </div>
   </div>
@@ -913,19 +911,6 @@ footer {
     </div>
   </div>
 
-  <div style="margin-top:48px;">
-    <div class="section-label" style="margin-bottom:20px;">Expertise badges</div>
-    <div class="chip-cloud">
-      <span class="chip" style="border-color:rgba(99,102,241,.4);color:var(--indigo-l)">☁ AWS Certified (in progress)</span>
-      <span class="chip" style="border-color:rgba(34,211,238,.4);color:var(--cyan)">⚡ Infrastructure Automation</span>
-      <span class="chip" style="border-color:rgba(236,72,153,.4);color:var(--pink-l)">🐳 Container Orchestration</span>
-      <span class="chip" style="border-color:rgba(245,158,11,.4);color:var(--amber-l)">🔍 Observability Expert</span>
-      <span class="chip">🔒 Security (IAM/VPC)</span>
-      <span class="chip">📦 CI/CD Pipelines</span>
-      <span class="chip">🐧 Linux Admin</span>
-      <span class="chip">📝 Shell Scripting</span>
-    </div>
-  </div>
 </section>
 
 <!-- ── CONTACT ────────────────────────────────────── -->
@@ -955,7 +940,7 @@ footer {
           <div class="contact-icon li">💼</div>
           <div>
             <div class="contact-label">LinkedIn</div>
-            <div class="contact-val">linkedin.com/in/sangamesh-belawadi</div>
+            <div class="contact-val">linkedin.com/in/sangamesh-belawadi-a79036405</div>
           </div>
         </a>
         <div class="contact-card" style="cursor:default">
@@ -988,7 +973,7 @@ footer {
   <div class="footer-text">© 2025 <span>Sangamesh Belawadi</span>. Built with passion &amp; pixels.</div>
   <div class="footer-text" style="display:flex;gap:16px;">
     <a href="mailto:sangameshmbelawadi@gmail.com" style="color:var(--text-muted);text-decoration:none;font-size:12px;transition:color .2s;" onmouseover="this.style.color='var(--indigo-l)'" onmouseout="this.style.color='var(--text-muted)'">Email</a>
-    <a href="https://www.linkedin.com/in/sangamesh-belawadi-a79036405" target="_blank" style="color:var(--text-muted);text-decoration:none;font-size:12px;transition:color .2s;" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text-muted)'">LinkedIn</a>
+    <a href="https://www.linkedin.com/in/sangamesh-belawadi-a79036405" style="color:var(--text-muted);text-decoration:none;font-size:12px;transition:color .2s;" onmouseover="this.style.color='var(--indigo-l)'" onmouseout="this.style.color='var(--text-muted)'">LinkedIn</a>
   </div>
 </footer>
 
